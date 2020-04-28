@@ -1,5 +1,7 @@
 import { charts } from 'chart.js'
 var bytes = require('bytes');
+var convert = require('convert-units')
+
 
 const settings = {
     min: 0,
@@ -16,7 +18,7 @@ const settings = {
 
         const mobro_settings =  MobroSDK.helper.settings
 
-        //could do that better
+        //could do that better some max vals could be wrong - please fix
         settings.min = mobro_settings.hardware.temperature[0].max
         settings.red = mobro_settings.hardware.temperature[0].critical
         settings.orange = mobro_settings.hardware.temperature[0].warning
@@ -72,6 +74,10 @@ const settings = {
 
 
         MobroSDK.emit("monitor:hardware").then((data) => {
+
+            console.log("hardware data", data)
+            document.getElementById("mobro-vram-data-total").innerHTML = data.graphics.gpus[0].refreshrateunit
+
             document.getElementById("mobro-cpu-name").innerHTML = data.processor.cpus[0].name
             document.getElementById("mobro-gpu-name").innerHTML = data.graphics.gpus[0].name
             document.getElementById("mobro-ram-data--total").innerHTML = bytes(data.memory.totalcapacity)
@@ -83,8 +89,6 @@ const settings = {
 
         const cpuFan = document.getElementById("fan_cpu-chart-doughnut")
         MobroSDK.addChannelListener("theme_fan_speed_cpu", (data) => {
-
-            console.log("the cpu fan", data);
             if(data.payload && data.payload.sensortype){
                 if(!charts.cpuFan){
                     charts.cpuFan = createClosedDoughnuts(document.getElementById("fan_cpu-chart-doughnut"))
@@ -111,6 +115,36 @@ const settings = {
             }
         })
 
+        const vramData = document.getElementById("mobro-vram-data")
+        MobroSDK.addChannelListener("theme_vram", (data) => {
+            if(data.payload){
+                vramData.style.display = 'inline-block';
+                if(data.payload.value > 1000){
+                    vramData.innerHTML = convert(data.payload.value).from(data.payload.unit).to('GB').toFixed(2) + 'GB'
+                }else{
+                    vramData.innerHTML = data.payload.value + data.payload.unit
+                }
+            }else{
+                vram.vramData.display = 'none';
+            }
+        })
+
+        const vram = document.getElementById("vram-chart-doughnut")
+        MobroSDK.addChannelListener("theme_vram_percentage", (data) => {
+            if(data.payload){
+                if(!charts.vramUsage){
+                    charts.vramUsage = createDoughnuts(document.getElementById("vram-chart-doughnut"))
+                    vram.style.display = 'block';
+                }
+                charts.vramUsage.chart.data.datasets[0].data[0] = parseFloat(data.payload.value)
+                charts.vramUsage.chart.data.datasets[0].data[1] = parseFloat(100 - data.payload.value)
+
+                // vramData.innerHTML =
+            }else{
+                vram.style.display = 'none';
+            }
+        })
+
     })
 })()
 
@@ -124,7 +158,7 @@ function initCharts() {
         "gpuTemp" : createDoughnuts(document.getElementById("gpu-chart-doughnut")),
 
         "ramUsage" : createDoughnuts(document.getElementById("ram-chart-doughnut")),
-        "vramTemp" : createDoughnuts(document.getElementById("vram-chart-doughnut")),
+        "vramUsage" : null,
 
         "cpuFan" : null,
         "gpuFan" : null,
