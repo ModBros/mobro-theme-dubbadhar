@@ -1,0 +1,34 @@
+{
+  "name": "mobro-theme-dubbadhar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode=development",
+    "build": "webpack --mode=production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ModBros/mobro-theme-dubbadhar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ModBros/mobro-theme-dubbadhar/issues"
+  },
+  "homepage": "https://github.com/ModBros/mobro-theme-dubbadhar#readme",
+  "dependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "babel-loader": "^8.1.0",
+    "bytes": "^3.1.0",
+    "chart.js": "^2.9.3",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.5.3",
+    "mini-css-extract-plugin": "^0.9.0",
+    "path": "^0.12.7",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}

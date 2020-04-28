@@ -1,0 +1,35 @@
+{
+  "channels": [{
+    "name": "theme_fan_speed_cpu",
+    "sources": "all",
+    "hardwaretype": "Mainboard",
+    "sensortype": "Fan",
+    "fallbackToFirstValue": true,
+    "extract": [{
+      "byLabel": [{
+        "includes": "(Chassis|chassis)"
+      }, {
+        "includes": "cpu"
+      }, {
+        "includes": "Cpu"
+      }
+      ]
+    }]
+  },{
+    "name": "theme_fan_speed_gpu",
+    "sources": "all",
+    "hardwaretype": "Graphics",
+    "sensortype": "Fan",
+    "fallbackToFirstValue": true,
+    "extract": [{
+      "byLabel": [ {
+        "includes": "GPU"
+      }, {
+        "includes": "gpu"
+      }, {
+        "includes": "Gpu"
+      }
+      ]
+    }]
+  }]
+}
