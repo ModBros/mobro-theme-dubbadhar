@@ -37554,7 +37554,6 @@ const settings = {
       memoryData.innerHTML = parseFloat(data.payload.value).toFixed(2);
     });
     MobroSDK.emit("monitor:hardware").then(data => {
-      console.log("hardware data", data);
       document.getElementById("mobro-cpu-name").innerHTML = data.processor.cpus[0].name;
       document.getElementById("mobro-gpu-name").innerHTML = data.graphics.gpus[0].name;
       document.getElementById("mobro-ram-data--total").innerHTML = bytes(data.memory.totalcapacity);
