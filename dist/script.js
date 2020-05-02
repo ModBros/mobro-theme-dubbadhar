@@ -37482,14 +37482,44 @@ const settings = {
 };
 
 (function () {
+  var hidden, visibilityChange;
+
+  if (typeof document.hidden !== "undefined") {
+    // Opera 12.10 and Firefox 18 and later support
+    hidden = "hidden";
+    visibilityChange = "visibilitychange";
+  } else if (typeof document.msHidden !== "undefined") {
+    hidden = "msHidden";
+    visibilityChange = "msvisibilitychange";
+  } else if (typeof document.webkitHidden !== "undefined") {
+    hidden = "webkitHidden";
+    visibilityChange = "webkitvisibilitychange";
+  }
+
+  function handleVisibilityChange() {
+    if (!document[hidden]) {
+      window.dispatchEvent(new Event('resize'));
+
+      if (charts && Object.keys(charts).length) {
+        for (let [key] of Object.entries(charts)) {
+          if (charts[key]) {
+            charts[key].update();
+          }
+        }
+      }
+    }
+  }
+
+  document.addEventListener(visibilityChange, handleVisibilityChange, false);
   configureChartJS();
+  let charts = {};
   MobroSDK.init().then(() => {
     const mobro_settings = MobroSDK.helper.settings; //could do that better some max vals could be wrong - please fix
 
     settings.min = mobro_settings.hardware.temperature[0].max;
     settings.red = mobro_settings.hardware.temperature[0].critical;
     settings.orange = mobro_settings.hardware.temperature[0].warning;
-    const charts = initCharts();
+    charts = initCharts();
     MobroSDK.addChannelListener('general_processor_temperature', data => {
       charts.cpuTemp.chart.data.datasets[0].data[0] = parseFloat(data.payload.value);
       charts.cpuTemp.chart.data.datasets[0].data[1] = parseFloat(data.payload.value - settings.max);
@@ -37525,12 +37555,14 @@ const settings = {
     });
     MobroSDK.emit("monitor:hardware").then(data => {
       console.log("hardware data", data);
-      document.getElementById("mobro-vram-data-total").innerHTML = data.graphics.gpus[0].refreshrateunit;
       document.getElementById("mobro-cpu-name").innerHTML = data.processor.cpus[0].name;
       document.getElementById("mobro-gpu-name").innerHTML = data.graphics.gpus[0].name;
       document.getElementById("mobro-ram-data--total").innerHTML = bytes(data.memory.totalcapacity);
     });
     MobroSDK.emit("monitor:sensor:data", "general_processor_temperature").then(data => {//could prefill line graphs later on...
+    });
+    MobroSDK.emit("monitor:sensor:data", "theme_vram_total").then(data => {
+      document.getElementById("mobro-vram-data-total").innerHTML = convert(data.value).from(data.unit).to('GB').toFixed(0) + 'GB';
     });
     const cpuFan = document.getElementById("fan_cpu-chart-doughnut");
     MobroSDK.addChannelListener("theme_fan_speed_cpu", data => {
@@ -37566,7 +37598,7 @@ const settings = {
         vramData.style.display = 'inline-block';
 
         if (data.payload.value > 1000) {
-          vramData.innerHTML = convert(data.payload.value).from(data.payload.unit).to('GB').toFixed(2) + 'GB';
+          vramData.innerHTML = convert(data.payload.value).from(data.payload.unit).to('GB').toFixed(2);
         } else {
           vramData.innerHTML = data.payload.value + data.payload.unit;
         }
@@ -37606,6 +37638,7 @@ function initCharts() {
 
 function createDoughnuts(element) {
   const outlineDoughnutOptions = {
+    responsive: true,
     cutoutPercentage: 75,
     circumference: 1.6 * Math.PI,
     rotation: -(1.3 * Math.PI),
@@ -37660,6 +37693,7 @@ function createLine(element, interpolate = false) {
     },
     animation: animation,
     cubicInterpolationMode: interpolate,
+    responsive: true,
     scales: {
       xAxes: [{
         display: false,
