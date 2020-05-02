@@ -24,13 +24,13 @@
                         <div class="col-6">
                             <span class="text-left d-block">LOAD - <span>%</span></span>
                             <h3 class="text-right" id="cpu-current-load">40</h3>
-                            <div class="chart-wrapper"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                                <canvas id="cpu-chart-line" width="366" height="218" data-name="LOAD" data-unit="%" style="display: block; height: 109px; width: 183px;" class="chartjs-render-monitor"></canvas>
+                            <div class="chart-wrapper">
+                                <canvas id="cpu-chart-line" width="100%" height="60%" data-name="LOAD" data-unit="%"></canvas>
                             </div>
                         </div>
                         <div class="col-6 position-relative">
-                            <div class="chart-wrapper"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                                <canvas id="cpu-chart-doughnut" data-border="margins" width="366" height="366" data-name="TEMP" data-unit="°C" class="chartjs-render-monitor" style="display: block; height: 183px; width: 183px;"></canvas>
+                            <div class="chart-wrapper">
+                                <canvas id="cpu-chart-doughnut" data-border="margins" width="100%" height="100%" data-name="TEMP" data-unit="°C"></canvas>
                             </div>
                         </div>
                     </div>
@@ -46,13 +46,13 @@
                         <div class="col-6">
                             <span class="text-left d-block">LOAD - <span>%</span></span>
                             <h3 class="text-right" id="gpu-current-load">25</h3>
-                            <div class="chart-wrapper"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                                <canvas id="gpu-chart-line" width="366" height="218" data-name="LOAD" data-unit="%" class="chartjs-render-monitor" style="display: block; height: 109px; width: 183px;"></canvas>
+                            <div class="chart-wrapper">
+                                <canvas id="gpu-chart-line" width="100%" height="60%" data-name="LOAD" data-unit="%"></canvas>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="chart-wrapper"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                                <canvas id="gpu-chart-doughnut" data-border="margins" width="366" height="366" data-name="TEMP" data-unit="°C" class="chartjs-render-monitor" style="display: block; height: 183px; width: 183px;"></canvas>
+                            <div class="chart-wrapper">
+                                <canvas id="gpu-chart-doughnut" data-border="margins" width="100%" height="100%" data-name="TEMP" data-unit="°C"></canvas>
                             </div>
                         </div>
                     </div>
@@ -66,8 +66,8 @@
             <h1>RAM</h1>
             <h2><span id="mobro-ram-data--used">14.14</span>/<span id="mobro-ram-data--total"></span></h2>
             <div class="embed-responsive embed-responsive-1by1">
-                <div class="embed-responsive-item"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                    <canvas id="ram-chart-doughnut" data-border="margins" width="374" height="374" data-name="" data-unit="%" class="chartjs-render-monitor" style="display: block; height: 187px; width: 187px;"></canvas>
+                <div class="embed-responsive-item">
+                    <canvas id="ram-chart-doughnut" data-border="margins" width="100%" height="100%" data-name="" data-unit="%"></canvas>
                 </div>
             </div>
         </div>
@@ -75,8 +75,8 @@
             <h1>VRAM</h1>
             <h2><span id="mobro-vram-data"></span>/<span id="mobro-vram-data-total"></span></h2>
             <div class="embed-responsive embed-responsive-1by1">
-                <div class="embed-responsive-item"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                    <canvas id="vram-chart-doughnut" data-border="margins" width="374" height="374" data-name="" data-unit="%" class="chartjs-render-monitor" style="display: block; height: 187px; width: 187px;"></canvas>
+                <div class="embed-responsive-item">
+                    <canvas id="vram-chart-doughnut" data-border="margins" width="100%" height="100%" data-name="" data-unit="%"></canvas>
                 </div>
             </div>
         </div>
@@ -86,13 +86,13 @@
                 <div class="embed-responsive-item">
                     <div class="row row-gutter--2">
                         <div class="col-6">
-                            <div class="chart-wrapper"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                                <canvas id="fan_cpu-chart-doughnut" data-border="circle" width="374" height="374" data-name="CPU" data-unit="RPM" class="chartjs-render-monitor" style="display: block; height: 187px; width: 187px;"></canvas>
+                            <div class="chart-wrapper">
+                                <canvas id="fan_cpu-chart-doughnut" data-border="circle" width="100%" height="100%" data-name="CPU" data-unit="RPM"></canvas>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="chart-wrapper"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                                <canvas id="fan_gpu-chart-doughnut" data-border="circle" width="374" height="374" data-name="GPU" data-unit="RPM" class="chartjs-render-monitor" style="display: block; height: 187px; width: 187px;"></canvas>
+                            <div class="chart-wrapper">
+                                <canvas id="fan_gpu-chart-doughnut" data-border="circle" width="100%" height="100%" data-name="GPU" data-unit="RPM"></canvas>
                             </div>
                         </div>
                     </div>

@@ -31,5 +31,44 @@
       }
       ]
     }]
+  },{
+    "name": "theme_vram",
+    "sources": "all",
+    "hardwaretype": "Graphics",
+    "sensortype": "Data",
+    "fallbackToFirstValue": false,
+    "extract": [{
+      "byLabel": [ {
+        "includes": "Memory Used"
+      },{
+        "includes": "Memory Usage"
+      }
+      ]
+    }]
+  },{
+    "name": "theme_vram_percentage",
+    "sources": "all",
+    "hardwaretype": "Graphics",
+    "sensortype": "Usage",
+    "fallbackToFirstValue": false,
+    "extract": [{
+      "byLabel": [ {
+        "includes": "Memory",
+        "excludes": "Controller"
+      }
+      ]
+    }]
+  },{
+    "name": "theme_vram_total",
+    "sources": "all",
+    "hardwaretype": "Graphics",
+    "sensortype": "Data",
+    "fallbackToFirstValue": false,
+    "extract": [{
+      "byLabel": [ {
+        "includes": "Memory Total"
+      }
+      ]
+    }]
   }]
 }
