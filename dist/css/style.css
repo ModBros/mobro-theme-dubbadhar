@@ -56,13 +56,13 @@ body{
     }
 }
 h1{
-    font-size: calc(22rem/16);
+    font-size: calc(22em/16);
 }
 h2{
-    font-size: calc(18rem/16);
+    font-size: calc(18em/16);
 }
 h3{
-    font-size: calc(42rem/16);
+    font-size: calc(42em/16);
 }
 .centered{
     justify-content: center;
