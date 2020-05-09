@@ -93,12 +93,11 @@ const settings = {
         MobroSDK.addChannelListener('general_memory_usage', (data) => {
             charts.ramUsage.chart.data.datasets[0].data[0] = parseFloat(data.payload.value)
             charts.ramUsage.chart.data.datasets[0].data[1] =  parseFloat(100 - data.payload.value)
-            memoryData.innerHTML = parseFloat(data.payload.value) + '/' + parseFloat(data.payload.max);
         })
 
         const memoryData = document.getElementById('mobro-ram-data--used')
         MobroSDK.addChannelListener('general_memory_used', (data) => {
-            memoryData.innerHTML = parseFloat(data.payload.value).toFixed(2);
+            memoryData.innerHTML = convert(parseFloat(data.payload.value)).from(data.payload.unit).to('GB').toFixed(2);
         })
 
 
@@ -350,21 +349,23 @@ function configureChartJS() {
 
                 var value = percent%1 ? percent.toFixed(1) : percent;
 
-
-                let textX = Math.round((width - ctx.measureText(value).width) / 2),
+                let textX = Math.round(width / 2),
                     textY = (height + chart.chartArea.top) / 2;
 
                 ctx.font = fontSize/3 + "px sans-serif";
                 ctx.fillStyle = "#FFF";
 
+                ctx.textAlign = "center";
+
                 let text_name = chart.canvas.getAttribute('data-name')
-                ctx.fillText(text_name, Math.round((width - ctx.measureText(text_name).width) / 2), textY - height/5)
+                ctx.fillText(text_name, Math.round(width / 2), textY - height/5)
 
                 let text_unit = chart.canvas.getAttribute('data-unit')
-                ctx.fillText(text_unit, Math.round((width - ctx.measureText(text_unit).width) / 2), textY + height/4)
+                ctx.fillText(text_unit, Math.round(width / 2), textY + height/4)
 
                 ctx.font = fontSize + "px sans-serif";
                 ctx.fillStyle = chart.config.data.datasets[0].backgroundColor[0];
+                ctx.textAlign = "center";
                 ctx.fillText(value, textX, textY + height/30);
                 ctx.fillStyle = oldFill;
 
