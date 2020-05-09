@@ -58,6 +58,7 @@ const settings = {
         MobroSDK.addChannelListener('general_processor_temperature', (data) => {
             charts.cpuTemp.chart.data.datasets[0].data[0] = parseFloat(data.payload.value);
             charts.cpuTemp.chart.data.datasets[0].data[1] =  parseFloat(data.payload.value - settings.max);
+            charts.cpuTemp.chart.update();
         });
         const cpuLoad = document.getElementById('cpu-current-load')
         MobroSDK.addChannelListener('general_processor_usage', (data) => {
@@ -68,6 +69,8 @@ const settings = {
 
             charts.cpuLoad.chart.config.data.labels.push(+ new Date())
             charts.cpuLoad.chart.config.data.labels.shift();
+
+            charts.cpuLoad.chart.update();
         })
 
 
@@ -75,6 +78,8 @@ const settings = {
         MobroSDK.addChannelListener('general_graphics_temperature', (data) => {
             charts.gpuTemp.chart.data.datasets[0].data[0] = parseFloat(data.payload.value)
             charts.gpuTemp.chart.data.datasets[0].data[1] =  parseFloat(data.payload.value - settings.max)
+
+            charts.gpuTemp.chart.update();
         })
 
         const gpuLoad = document.getElementById('gpu-current-load')
@@ -86,6 +91,8 @@ const settings = {
 
             charts.gpuLoad.chart.config.data.labels.push(+ new Date())
             charts.gpuLoad.chart.config.data.labels.shift();
+
+            charts.gpuLoad.chart.update()
         })
 
 
@@ -93,6 +100,8 @@ const settings = {
         MobroSDK.addChannelListener('general_memory_usage', (data) => {
             charts.ramUsage.chart.data.datasets[0].data[0] = parseFloat(data.payload.value)
             charts.ramUsage.chart.data.datasets[0].data[1] =  parseFloat(100 - data.payload.value)
+
+            charts.ramUsage.chart.update()
         })
 
         const memoryData = document.getElementById('mobro-ram-data--used')
@@ -128,6 +137,8 @@ const settings = {
                 }
                 charts.cpuFan.chart.data.datasets[0].data[0] = parseFloat(data.payload.value)
                 charts.cpuFan.chart.data.datasets[0].data[1] = parseFloat(data.payload.avg - data.payload.value)
+
+                charts.cpuFan.chart.update()
             }else{
                 cpuFan.style.display = 'none';
             }
@@ -142,6 +153,8 @@ const settings = {
                 }
                 charts.gpuFan.chart.data.datasets[0].data[0] = parseFloat(data.payload.value)
                 charts.gpuFan.chart.data.datasets[0].data[1] = parseFloat(data.payload.avg - data.payload.value)
+
+                charts.gpuFan.chart.update()
             }else{
                 gpuFan.style.display = 'none';
             }
@@ -170,6 +183,8 @@ const settings = {
                 }
                 charts.vramUsage.chart.data.datasets[0].data[0] = parseFloat(data.payload.value)
                 charts.vramUsage.chart.data.datasets[0].data[1] = parseFloat(100 - data.payload.value)
+
+                charts.vramUsage.chart.update()
 
                 // vramData.innerHTML =
             }else{
