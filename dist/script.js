@@ -37560,6 +37560,10 @@ const settings = {
     MobroSDK.emit("monitor:sensor:data", "general_processor_temperature").then(data => {//could prefill line graphs later on...
     });
     MobroSDK.emit("monitor:sensor:data", "theme_vram_total").then(data => {
+      if (!data.value || !data.unit) {
+        return;
+      }
+
       document.getElementById("mobro-vram-data-total").innerHTML = convert(data.value).from(data.unit).to('GB').toFixed(0) + 'GB';
     });
     const cpuFan = document.getElementById("fan_cpu-chart-doughnut");

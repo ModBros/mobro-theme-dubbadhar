@@ -112,6 +112,9 @@ const settings = {
         })
 
         MobroSDK.emit("monitor:sensor:data", "theme_vram_total").then((data) => {
+            if(!data.value || !data.unit){
+                return;
+            }
             document.getElementById("mobro-vram-data-total").innerHTML =
                 convert(data.value).from(data.unit).to('GB').toFixed(0) + 'GB'
         })
