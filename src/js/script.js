@@ -124,6 +124,7 @@ const settings = {
             if(!data.value || !data.unit){
                 return;
             }
+
             document.getElementById("mobro-vram-data-total").innerHTML =
                 convert(data.value).from(data.unit).to('GB').toFixed(0) + 'GB'
         })
@@ -164,11 +165,9 @@ const settings = {
         MobroSDK.addChannelListener("theme_vram", (data) => {
             if(data.payload){
                 vramData.style.display = 'inline-block';
-                if(data.payload.value > 1000){
+                    console.log("vram", convert(data.payload.value).from(data.payload.unit).to('GB'))
+                    console.log("vram fixed", convert(data.payload.value).from(data.payload.unit).to('GB').toFixed(2))
                     vramData.innerHTML = convert(data.payload.value).from(data.payload.unit).to('GB').toFixed(2)
-                }else{
-                    vramData.innerHTML = data.payload.value + data.payload.unit
-                }
             }else{
                 vram.vramData.display = 'none';
             }

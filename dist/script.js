@@ -37605,12 +37605,9 @@ const settings = {
     MobroSDK.addChannelListener("theme_vram", data => {
       if (data.payload) {
         vramData.style.display = 'inline-block';
-
-        if (data.payload.value > 1000) {
-          vramData.innerHTML = convert(data.payload.value).from(data.payload.unit).to('GB').toFixed(2);
-        } else {
-          vramData.innerHTML = data.payload.value + data.payload.unit;
-        }
+        console.log("vram", convert(data.payload.value).from(data.payload.unit).to('GB'));
+        console.log("vram fixed", convert(data.payload.value).from(data.payload.unit).to('GB').toFixed(2));
+        vramData.innerHTML = convert(data.payload.value).from(data.payload.unit).to('GB').toFixed(2);
       } else {
         vram.vramData.display = 'none';
       }
