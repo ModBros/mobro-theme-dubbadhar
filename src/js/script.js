@@ -165,9 +165,7 @@ const settings = {
         MobroSDK.addChannelListener("theme_vram", (data) => {
             if(data.payload){
                 vramData.style.display = 'inline-block';
-                    console.log("vram", convert(data.payload.value).from(data.payload.unit).to('GB'))
-                    console.log("vram fixed", convert(data.payload.value).from(data.payload.unit).to('GB').toFixed(2))
-                    vramData.innerHTML = convert(data.payload.value).from(data.payload.unit).to('GB').toFixed(2)
+                vramData.innerHTML = convert(data.payload.value).from(data.payload.unit).to('GB').toFixed(2)
             }else{
                 vram.vramData.display = 'none';
             }
